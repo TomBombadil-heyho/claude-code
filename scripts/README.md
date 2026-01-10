@@ -43,7 +43,8 @@ bash scripts/delete-non-main-branches.sh --yes
 - Error handling: Reports which branches failed to delete
 
 **Important Notes:**
-- This script deletes branches from the remote repository (origin)
+- This script deletes branches from the remote repository named `origin`
+- If your remote has a different name, you'll need to modify the script or rename your remote
 - Make sure you have the necessary permissions to delete remote branches
 - Consider setting up branch protection rules on GitHub to prevent accidental deletions of important branches
 

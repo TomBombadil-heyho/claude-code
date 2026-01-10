@@ -55,8 +55,8 @@ fi
 echo -e "${BLUE}=== Branch Cleanup Script ===${NC}"
 echo ""
 
-# Get list of remote branches, excluding main, master, and HEAD
-BRANCHES_TO_DELETE=$(git branch -r | grep -v "HEAD" | grep -v "/main$" | grep -v "/master$" | awk '{print $1}' | sed 's/origin\///')
+# Get list of remote branches from origin, excluding main, master, and HEAD
+BRANCHES_TO_DELETE=$(git branch -r | grep "^[[:space:]]*origin/" | grep -v "HEAD" | grep -v "/main$" | grep -v "/master$" | awk '{print $1}' | sed 's/origin\///')
 
 # Check if there are any branches to delete
 if [ -z "$BRANCHES_TO_DELETE" ]; then
@@ -64,8 +64,8 @@ if [ -z "$BRANCHES_TO_DELETE" ]; then
     exit 0
 fi
 
-# Count branches
-BRANCH_COUNT=$(echo "$BRANCHES_TO_DELETE" | wc -l)
+# Count branches (only count non-empty lines)
+BRANCH_COUNT=$(echo "$BRANCHES_TO_DELETE" | grep -c .)
 
 echo -e "${YELLOW}Found ${BRANCH_COUNT} branch(es) to delete:${NC}"
 echo ""
